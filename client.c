@@ -1,6 +1,11 @@
 #include "ft_printf/ft_printf.h"
 #include <signal.h>
 
+void	ft_finish(int sig)
+{
+	if (sig == SIGUSR1)
+		return ;
+}
 void	ft_send_bits(int pid, char i)
 {
 	int	bit;
@@ -8,12 +13,19 @@ void	ft_send_bits(int pid, char i)
 	bit = 0;
 	while (bit < 8)
 	{
+		signal(SIGUSR1, ft_finish);
 		if ((i & (0x01 << bit)) != 0)
-			kill(pid, SIGUSR1);
+		{
+			if ((kill(pid, SIGUSR1)) == -1)
+					exit(1);
+		}
 		else
-			kill(pid, SIGUSR2);
-		usleep(300);
+		{
+			if ((kill(pid, SIGUSR2)) == -1)
+					exit(1);
+		}
 		bit++;
+		pause();
 	}
 }
 

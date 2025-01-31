@@ -20,38 +20,50 @@ void print_banner() {
     write(1, RESET "\n", 5);
 }
 
-void	ft_handler(int signal)
+void	ft_handler(int signal, siginfo_t *info, void *s)
 {
 	static int	bit;
 	static int	i;
+	static int	pid;
+	(void)s;
 
+	if (!pid)
+		pid = info->si_pid;
+	if (pid != info->si_pid)
+	{
+		pid = info->si_pid;
+		i = 0;
+		bit = 0;
+	}
 	if (signal == SIGUSR1)
-		i |= (0x01 << bit);
+		i += (0x01 << bit);
 	bit++;
 	if (bit == 8)
 	{
-		ft_printf("%c", i);
+		write (1, &i, 1);
 		bit = 0;
 		i = 0;
 	}
+	usleep(800);
+	kill(info->si_pid, SIGUSR1);
 }
 
-int main(int argc, char **argv)
+int main(void)
 {
     pid_t server_pid;
+	struct sigaction si;
 
-	(void)argv;
     server_pid = getpid();
     clear_screen();
     print_banner();
-    write(1, GREEN "server PID: ", 17);
+    write(1, GREEN "server PID: " "\033[0m", 17);
     ft_printf("%d\n", server_pid);
-
-    while (argc == 1)
-	{
-		signal(SIGUSR1, ft_handler);
-		signal(SIGUSR2, ft_handler);
+	si.sa_sigaction = ft_handler;
+	si.sa_flags = SA_SIGINFO;
+	sigemptyset(&si.sa_mask);
+	sigaction(SIGUSR1, &si, NULL);
+	sigaction(SIGUSR2, &si, NULL);
+	while (1)
 		pause ();
-	}
     return (0);
 }
