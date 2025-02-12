@@ -1,4 +1,4 @@
-#include "server.h"
+#include "server_bonus.h"
 
 #define RESET "\033[0m"
 #define GREEN "\033[32m"
