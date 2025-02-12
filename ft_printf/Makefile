@@ -1,4 +1,4 @@
-CFLAGS = -W -W -W
+CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
 SRCS = ft_printf.c ft_printf_utils_1.c ft_printf_utils_2.c
 SRCS_BONUS = ft_printf_bonus.c ft_printf_utils_1_bonus.c ft_printf_utils_2_bonus.c
