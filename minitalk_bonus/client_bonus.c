@@ -51,8 +51,8 @@ void	ft_send_bits(int pid, char i)
 
 int	main(int argc, char **argv)
 {
-	int		pid;
-	int		i;
+	int	pid;
+	int	i;
 
 	i = 0;
 	if (argc == 3)

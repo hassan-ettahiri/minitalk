@@ -14,8 +14,8 @@
 
 int	ft_isspace(char c)
 {
-	return (c == ' ' || c == '\t' || c == '\f'
-		|| c == '\v' || c == '\n' || c == '\r');
+	return (c == ' ' || c == '\t' || c == '\f' || c == '\v' || c == '\n'
+		|| c == '\r');
 }
 
 int	ft_isdigit(char c)

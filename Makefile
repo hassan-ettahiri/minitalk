@@ -9,7 +9,7 @@ RM = rm -f
 
 SRC_SERVER = server.c
 SRC_CLIENT = client.c ft_atoi.c
-SRC_SERVER_BONUS = minitalk_bonus/server_bonus.c
+SRC_SERVER_BONUS = minitalk_bonus/server_bonus.c minitalk_bonus/server_utils_bonus.c
 SRC_CLIENT_BONUS = minitalk_bonus/client_bonus.c ft_atoi.c
 SRC_PRINTF = ./ft_printf/ft_printf_utils_1.c ./ft_printf/ft_printf_utils_2.c ./ft_printf/ft_printf.c
 
@@ -20,6 +20,8 @@ OBJ_CLIENT_BONUS = $(SRC_CLIENT_BONUS:.c=.o)
 OBJ_PRINTF = $(SRC_PRINTF:.c=.o)
 
 BONUS = $(NAME_SERVER_BONUS) $(NAME_CLIENT_BONUS)
+
+all: $(NAME_SERVER) $(NAME_CLIENT)
 
 bonus: $(BONUS)
 
